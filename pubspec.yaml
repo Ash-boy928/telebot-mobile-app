@@ -1,0 +1,36 @@
+name: telebot_native
+description: "Ultra-fast, lightweight 3-Tab TeleBot Native Android App with 10-Slot Parallel DM engine and Day/Night themes."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.2.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  # State management & reactive caching
+  provider: ^6.1.1
+  # Ultra-fast key-value memory store for sessions & configs
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  # Android 24/7 background foreground execution & wakelock
+  flutter_foreground_task: ^6.1.1
+  # Haptic feedback for tactile feel
+  vibration: ^1.8.4
+  # Real-time WebSocket to sync live stats & ID logs with VPS / Cloud DB
+  web_socket_channel: ^2.4.1
+  http: ^1.2.0
+  # Modern Cupertino and Material icons
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true

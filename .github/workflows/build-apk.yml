@@ -25,7 +25,34 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
 
-      - name: Generate Android Skeleton
+      - name: Auto Generate Clean Pubspec
+        run: |
+          cat << 'EOF' > pubspec.yaml
+          name: telebot_app
+          description: "TeleBot VIP Native Android App"
+          publish_to: 'none'
+          version: 1.0.0+1
+
+          environment:
+            sdk: '>=3.2.0 <4.0.0'
+
+          dependencies:
+            flutter:
+              sdk: flutter
+            provider: ^6.1.2
+            http: ^1.2.1
+            cupertino_icons: ^1.0.6
+
+          dev_dependencies:
+            flutter_test:
+              sdk: flutter
+            flutter_lints: ^3.0.0
+
+          flutter:
+            uses-material-design: true
+          EOF
+
+      - name: Generate Android Project
         run: |
           flutter create . --platforms=android --org com.leotelebot.app --project-name telebot_app
 
@@ -33,12 +60,16 @@ jobs:
         run: |
           chmod +x android/gradlew || true
 
+      - name: Add Internet Permission
+        run: |
+          sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml || true
+
       - name: Install Dependencies
         run: flutter pub get
 
       - name: Build Android APK
         run: |
-          flutter build apk --release --no-tree-shake-icons || flutter build apk --debug
+          flutter build apk --debug
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

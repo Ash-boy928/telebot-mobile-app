@@ -1,4 +1,4 @@
-name: Build & Release TeleBot APK
+name: Build TeleBot APK
 
 on:
   push:
@@ -10,32 +10,37 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Java
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'zulu'
+          distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Flutter
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.24.0'
           channel: 'stable'
 
-      - name: Generate Android Platform Files
-        run: flutter create . --platforms=android --org com.leotelebot.app --project-name telebot_mobile
+      - name: Generate Android Skeleton
+        run: |
+          flutter create . --platforms=android --org com.leotelebot.app
 
-      - name: Get Dependencies
+      - name: Configure Android SDK Versions
+        run: |
+          sed -i 's/minSdkVersion = .*/minSdkVersion = 21/g' android/app/build.gradle || true
+
+      - name: Install Dependencies
         run: flutter pub get
 
-      - name: Build APK (Release)
+      - name: Build Release APK
         run: flutter build apk --release
 
-      - name: Upload APK Artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: telebot-release-apk
+          name: TeleBot-Android-App
           path: build/app/outputs/flutter-apk/app-release.apk

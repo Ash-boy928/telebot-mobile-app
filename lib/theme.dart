@@ -60,7 +60,7 @@ class TeleBotTheme {
     cardTheme: CardTheme(
       color: Colors.white,
       elevation: 2,
-      shadowColor: Colors.black.withOpacity(0.04),
+      shadowColor: Colors.black12,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
@@ -69,7 +69,7 @@ class TeleBotTheme {
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.white,
       foregroundColor: Color(0xFF0F172A),
-      elevation: 0,
+      elevation: 0.5,
       centerTitle: false,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

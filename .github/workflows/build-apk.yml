@@ -25,34 +25,11 @@ jobs:
           flutter-version: '3.24.0'
           channel: 'stable'
 
-      - name: Auto Generate Clean Pubspec
+      - name: Auto Fix Pubspec
         run: |
-          cat << 'EOF' > pubspec.yaml
-          name: telebot_app
-          description: "TeleBot VIP Native Android App"
-          publish_to: 'none'
-          version: 1.0.0+1
+          printf 'name: telebot_app\ndescription: "TeleBot VIP Native Android App"\npublish_to: "none"\nversion: 1.0.0+1\n\nenvironment:\n  sdk: ">=3.2.0 <4.0.0"\n\ndependencies:\n  flutter:\n    sdk: flutter\n  provider: ^6.1.2\n  http: ^1.2.1\n  cupertino_icons: ^1.0.6\n\ndev_dependencies:\n  flutter_test:\n    sdk: flutter\n  flutter_lints: ^3.0.0\n\nflutter:\n  uses-material-design: true\n' > pubspec.yaml
 
-          environment:
-            sdk: '>=3.2.0 <4.0.0'
-
-          dependencies:
-            flutter:
-              sdk: flutter
-            provider: ^6.1.2
-            http: ^1.2.1
-            cupertino_icons: ^1.0.6
-
-          dev_dependencies:
-            flutter_test:
-              sdk: flutter
-            flutter_lints: ^3.0.0
-
-          flutter:
-            uses-material-design: true
-          EOF
-
-      - name: Generate Android Project
+      - name: Generate Android Skeleton
         run: |
           flutter create . --platforms=android --org com.leotelebot.app --project-name telebot_app
 

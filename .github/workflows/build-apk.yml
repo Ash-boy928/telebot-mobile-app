@@ -27,7 +27,7 @@ jobs:
 
       - name: Generate Android Skeleton
         run: |
-          flutter create . --platforms=android --org com.leotelebot.app
+          flutter create . --platforms=android --org com.leotelebot.app --project-name telebot_app
 
       - name: Configure Android SDK Versions
         run: |
